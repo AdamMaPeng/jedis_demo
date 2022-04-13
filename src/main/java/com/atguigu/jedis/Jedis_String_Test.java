@@ -10,6 +10,8 @@ package com.atguigu.jedis;
 
 import redis.clients.jedis.Jedis;
 
+import java.util.List;
+
 /**
  *   通过 Jedis 测试 String 数据类型中的方法
  *      set
@@ -40,12 +42,44 @@ public class Jedis_String_Test {
         System.out.println(s1get);
 
         //setnx
-        Long s2 = jedis.setnx("s2", "222");
-        // get s2
-        String s22 = jedis.get("s2");
-        System.out.println(s22);
+        jedis.setnx("snx","234");
+        System.out.println(jedis.get("snx"));
 
-        //
+        // mset
+        String mset = jedis.mset("ms1", "ms111", "ms2", "ms222");
+        // mget
+        List<String> mget = jedis.mget("ms1", "ms2");
+        for (String s : mget) {
+            System.out.println(s);
+        }
+        // msetnx
+        Long msetnx = jedis.msetnx("msn1", "msn111", "msn2", "msn222");
+        String msn1 = jedis.get("msn1");
+        System.out.println(msn1);
+
+        // append
+        jedis.append("msn1", "--append");
+        System.out.println(jedis.get("msn1"));
+
+        // strlen
+        System.out.println(jedis.strlen("msn1"));
+
+        // incr
+        jedis.incr("snx");
+        System.out.println(jedis.get("snx"));
+
+        //incrby
+        jedis.incrBy("snx", 3);
+        System.out.println(jedis.get("snx"));
+
+        // decr
+        jedis.decr("snx");
+        System.out.println(jedis.get("snx"));
+
+        // decrby
+        jedis.decrBy("snx",3);
+        System.out.println(jedis.get("snx"));
+
         // 关闭 redis 服务器
         jedis.close();
     }
