@@ -65,6 +65,7 @@ public class Jedis_Zset_Test {
         System.out.println(jedis.zrem("examScore", "Adam"));
 
 
+
         // redis 服务器关闭
         jedis.close();
     }
